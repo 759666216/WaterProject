@@ -328,15 +328,16 @@
 		</div>
 	</div>
 
-<canvas id="canvas" style="position: absolute;top: 0;left: 0;height: 1400px"></canvas>
+<%--<canvas id="canvas" style="position: absolute;top: 0;left: 0;height: 1400px"></canvas>--%>
 </body>
-<script type="text/javascript" src="js/bg.js"></script>
+<%--<script type="text/javascript" src="js/bg.js"></script>--%>
 <script type="text/javascript" src="js/scanboard.js"></script>
 <script type="text/javascript" src="js/fontscroll.js"></script>
 <script type="text/javascript" src="js/jquery.animsition.js"></script>
 <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
 <script type="text/javascript" src="js/echarts.min.js"></script>
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=f8ffe058b8e6f5b05e8ff43ca4207393"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=ce3b1a3a7e67fc75810ce1ba1f83c01a&plugin=AMap.MapType"></script>
+<%--<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=f8ffe058b8e6f5b05e8ff43ca4207393"></script>--%>
 
 <script>
 

@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="css/scanboard.css" />
 <link rel="stylesheet" type="text/css" href="css/animsition.css" />
 <link rel="stylesheet" type="text/css" href="css/jquery.shCircleLoader.css" />
+<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap3.css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.shCircleLoader-min.js"></script>
 </head>
@@ -27,7 +28,7 @@
 		<div id="top">
 			<div class="wp clearfix">
 				<div class="left pageTit">
-					<a class="summaryBtn" href="javascript:;">监测基地总览</a>
+<%--					<a class="summaryBtn" href="javascript:;">监测基地总览</a>--%>
 				</div>
 				<div class="center topLogo">
 					<a href="#"><img src="images/20191203002.png"></a>
@@ -50,9 +51,9 @@
 		
 		<!--Main Start!-->
 		<div id="main" class="wp clearfix">
-			<div class="left">
-				<!--今日运单数量-->
-				<div class="item waybill">
+			<div class="cont left">
+				<!--累计降雨统计-->
+				<div class="item waybill" style="height: 30%">
 					<div class="itemTit">
 						<span class="border-yellow">累计降雨统计</span>
 					</div>
@@ -84,7 +85,7 @@
 				</div>
 
 				<!--各阶段平均用时统计-->
-				<div class="item">
+				<div class="item" style="height: 30%">
 					<div class="itemTit">
 						<span class="border-green">监测统计</span>
 					</div>
@@ -115,7 +116,7 @@
 				</div>
 
 				<!--人员信息-->
-				<div class="item">
+				<div class="item" style="height: 30%">
 					<div class="itemTit">
 						<span class="border-blue">月降雨量</span>
 					</div>
@@ -140,10 +141,10 @@
 				</div>
 			</div>
 
-			<div class="center">
+			<div class="cont center">
 				<div class="centerWp" >
 					<!--中间大地图-->
-					<div class="mapContainer" style="height: 400px">
+					<div class="mapContainer" style="height: 60%; width: 100%">
 						<div class="btnLayer">
 							<div class="search">
 								<div class="searchInner">
@@ -155,11 +156,11 @@
 								</div>
 							</div>
 					    	</div>
-						<div id="myMap" class="item"></div>
+						<div id="myMap" class="item" style="height: 100%; width: 100%"></div>
 					</div>
 					
 					<!--月运单量统计图-->
-					<div class="billChart">
+					<div class="billChart item" style="margin-top: 25px">
 						<div class="itemTit">
 							<span class="border-blue">月液位计变化图<small>(2020年9月)</small></span>
 						</div>
@@ -168,23 +169,23 @@
 				</div>
 			</div>
 
-			<div class="right">
-				<div class="item basicInfo">
+			<div class="cont right">
+				<div class="item basicInfo" style="height: 30%">
 					<div class="itemTit">
 						<span class="border-green">土壤信息</span>
 					</div>
 					<div class="itemCon itembg">
 						<div class="infoPie">
 							<ul class="clearfix">
-								<li class="color-yellow">
+								<li id="mypopover" class="color-yellow" data-toggle="popover">
 									<span class="border-yellow" id="indicator11">0</span>
 									<p>土壤温度</p>
 								</li>
-								<li class="color-green">
+								<li class="color-green" data-toggle="popover">
 									<span class="border-green" id="indicator21" >0</span>
 									<p>土壤湿度</p>
 								</li>
-								<li class="color-blue">
+								<li class="color-blue" data-toggle="popover">
 									<span class="border-blue" id="indicator31" >0</span>
 									<p>阳光辐射</p>
 								</li>
@@ -195,22 +196,22 @@
 				</div>
 
 				<!--基本信息-->
-				<div class="item basicInfo">
+				<div class="item basicInfo" style="height: 30%">
 					<div class="itemTit">
 						<span class="border-green">降雨相关信息</span>
 					</div>
 					<div class="itemCon itembg">
 						<div class="infoPie">
 							<ul class="clearfix">
-								<li class="color-yellow">
+								<li class="color-yellow" data-toggle="popover">
 									<span class="border-yellow" id="indicator12" total="60">0</span>
 									<p>当前降雨</p>
 								</li>
-								<li class="color-green">
+								<li class="color-green" data-toggle="popover">
 									<span class="border-green" id="indicator22" total="65">0</span>
 									<p>平均风速</p>
 								</li>
-								<li class="color-blue">
+								<li class="color-blue" data-toggle="popover">
 									<span class="border-blue" id="indicator32" total="100">0</span>
 									<p>空气湿度</p>
 								</li>
@@ -221,7 +222,7 @@
 				</div>
 
 				<!--运单状态-->
-				<div class="item billState">
+				<div class="item billState" style="height: 30%">
 					<div class="itemTit">
 						<span class="border-green">运行状态</span>
 					</div>
@@ -328,15 +329,16 @@
 		</div>
 	</div>
 
-<canvas id="canvas" style="position: absolute;top: 0;left: 0;height: 1400px"></canvas>
+<%--<canvas id="canvas" style="position: absolute;top: 0;left: 0;height: 1400px"></canvas>--%>
 </body>
-<script type="text/javascript" src="js/bg.js"></script>
+<%--<script type="text/javascript" src="js/bg.js"></script>--%>
 <script type="text/javascript" src="js/scanboard.js"></script>
 <script type="text/javascript" src="js/fontscroll.js"></script>
 <script type="text/javascript" src="js/jquery.animsition.js"></script>
 <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
 <script type="text/javascript" src="js/echarts.min.js"></script>
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=f8ffe058b8e6f5b05e8ff43ca4207393"></script>
+<script type="text/javascript" src="vendor/bootstrap/js/bootstrap3.js"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=ce3b1a3a7e67fc75810ce1ba1f83c01a&plugin=AMap.MapType"></script>
 
 <script>
 
@@ -346,6 +348,7 @@
 	getRainfall();
 	getSolarRadiationIntensity();
 	getRelativeHumidity();
+
 
 	function getTemperature(){
 		var TemperatureData = 0;

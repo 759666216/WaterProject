@@ -1,4 +1,73 @@
 $(function(){
+
+	// 6个圆饼的折线图
+	$('[data-toggle="popover"]').each(function () {
+		var element = $(this);
+		var txt ='<div id="trwd" style="height:300px;"></div>';
+		element.popover({
+			trigger: 'hover',
+			placement: 'left', //top, bottom, left or right
+			// title: '土壤信息',
+			html: 'true',
+			content: txt,
+		})
+	});
+	$('[data-toggle="popover"]').on('shown.bs.popover', function () {
+		var element = $(this);
+		var index = element.index('[data-toggle="popover"]');
+		var titles = [
+			'过去一周土壤温度变化',
+			'过去一周土壤湿度变化',
+			'过去一周阳光辐射变化',
+			'过去一周降雨量变化',
+			'过去一周平均风速变化',
+			'过去一周空气湿度变化'
+		];
+		var names = ['温度(℃)', '湿度(hPa)', '辐射量(KJ)', '降雨量(mm)', '风速(m/s)', '空气湿度(hPa)',]
+		var datas = [
+			[11, 11, 15, 13, 12, 13, 10],
+			[108, 112, 134, 56, 78, 99, 177],
+			[700, 112, 346, 56, 178, 299, 477],
+			[20, 0, 0, 0, 12, 13, 0],
+			[4, 5, 7, 8, 1, 3, 9],
+			[148, 152, 144, 526, 718, 199, 377],
+		]
+		option = {
+			title: {
+				text: titles[index],
+				// subtext: '纯属虚构'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+			},
+			yAxis: {
+				name: names[index],
+				type: 'value',
+			},
+			series: [
+				{
+					type: 'line',
+					data: datas[index],
+					// markPoint: {
+					// 	data: [
+					// 		{type: 'max', name: '最大值'},
+					// 		{type: 'min', name: '最小值'}
+					// 	]
+					// }
+				}
+			]
+		};
+
+		var myChart = echarts.init(document.getElementById('trwd'));
+		myChart.setOption(option);
+	})
+
+
 	//页面淡入效果
 	$(".animsition").animsition({
 	    inClass               :   'fade-in',
@@ -78,10 +147,12 @@ $(function(){
     var myMap = new AMap.Map('myMap',{
         resizeEnable: true,
         zoom: 14,
-        mapStyle: 'amap://styles/darkblue',
+        mapStyle: 'amap://styles/normal', //darkblue
         center: [109.077771,34.000516],
     });
-    
+    // myMap.addControl(new AMap.MapType({
+	// 	defaultType: 0 // 0代表默认，1代表卫星
+	// }))
     var point = [
     	[109.071823,33.997203],
     	[109.077645,33.997858],
@@ -89,10 +160,17 @@ $(function(){
 	]
     var maker;
     for (var i = 0; i < point.length; i += 1) {
+    	var icon = new AMap.Icon({
+			image: 'images/position.svg', //address
+			size: new AMap.Size(30, 40),
+			// imageOffset: new AMap.Pixel(0, -60),
+			imageSize: new AMap.Size(30, 40)
+		})
         var marker = new AMap.Marker({
             position: point[i],
             map: myMap,
-            icon:'images/s_ico44.png',
+			icon: icon
+            // icon:'images/s_ico44.png',
         });
         marker.content='<p>ZC1712120023</p>'+
 				'<p>类别：传感器</p>'+
@@ -172,19 +250,32 @@ $(function(){
 			type: 'bar',
 			barWidth : 10,
 			data: ['5','14','3','6','8','18','11','4','8','7','16','13','6','10','11','9','19','13','4','20','12','7','13','15','8','3','9','16','11','16','8'],
+			// itemStyle: {
+            //     normal: {
+            //     	barBorderRadius:[5, 5, 5, 5],
+            //         color: new echarts.graphic.LinearGradient(
+            //             0, 0, 0, 1,
+            //             [
+            //                 {offset: 0, color: '#3876cd'},
+            //                 {offset: 0.5, color: '#45b4e7'},
+            //                 {offset: 1, color: '#54ffff'}
+            //             ]
+            //         ),
+            //     },
+            // },
 			itemStyle: {
-                normal: {
-                	barBorderRadius:[5, 5, 5, 5],
-                    color: new echarts.graphic.LinearGradient(
-                        0, 0, 0, 1,
-                        [
-                            {offset: 0, color: '#3876cd'},
-                            {offset: 0.5, color: '#45b4e7'},
-                            {offset: 1, color: '#54ffff'}
-                        ]
-                    ),
-                },
-            },
+				normal: {
+					color: new echarts.graphic.LinearGradient(
+						0, 0, 0, 1,
+						[
+							{offset: 0, color: 'rgba(0,0,0,0.4)'},
+							{offset: 0.7, color: 'rgba(0,0,0,0.4)'},
+							{offset: 1, color: '#ff8811'}
+						]
+					)
+				},
+
+			}
 		},
 	}
 
