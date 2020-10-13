@@ -78,10 +78,12 @@ $(function(){
     var myMap = new AMap.Map('myMap',{
         resizeEnable: true,
         zoom: 14,
-        mapStyle: 'amap://styles/darkblue',
+        mapStyle: 'amap://styles/normal', //darkblue
         center: [109.077771,34.000516],
     });
-    
+    // myMap.addControl(new AMap.MapType({
+	// 	defaultType: 0 // 0代表默认，1代表卫星
+	// }))
     var point = [
     	[109.071823,33.997203],
     	[109.077645,33.997858],
@@ -89,10 +91,17 @@ $(function(){
 	]
     var maker;
     for (var i = 0; i < point.length; i += 1) {
+    	var icon = new AMap.Icon({
+			image: 'images/position.svg', //address
+			size: new AMap.Size(30, 40),
+			// imageOffset: new AMap.Pixel(0, -60),
+			imageSize: new AMap.Size(30, 40)
+		})
         var marker = new AMap.Marker({
             position: point[i],
             map: myMap,
-            icon:'images/s_ico44.png',
+			icon: icon
+            // icon:'images/s_ico44.png',
         });
         marker.content='<p>ZC1712120023</p>'+
 				'<p>类别：传感器</p>'+
