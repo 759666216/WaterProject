@@ -1,37 +1,27 @@
 $(function(){
+	var $btn=$(".btn");
 
+	var currentPie = -1;
+	var index = -1;
 	// 6个圆饼的折线图
-	$('[data-toggle="popover"]').each(function () {
+	$('.pieData').on('click', function(){
 		var element = $(this);
-		var txt ='<div id="trwd" style="height:300px;"></div>';
-		element.popover({
-			trigger: 'hover',
-			placement: 'left', //top, bottom, left or right
-			// title: '土壤信息',
-			html: 'true',
-			content: txt,
-		})
-	});
-	$('[data-toggle="popover"]').on('shown.bs.popover', function () {
-		var element = $(this);
-		var index = element.index('[data-toggle="popover"]');
+		index = element.index('.pieData');
+	})
+	$('#myModal').on('shown.bs.modal', function(){
 		var titles = [
-			'过去一周土壤温度变化',
-			'过去一周土壤湿度变化',
-			'过去一周阳光辐射变化',
-			'过去一周降雨量变化',
-			'过去一周平均风速变化',
-			'过去一周空气湿度变化'
+			'最近壤温度变化',
+			'最近土壤湿度变化',
+			'最近阳光辐射变化',
+			'最近降雨量变化',
+			'最近平均风速变化',
+			'最近空气湿度变化'
 		];
 		var names = ['温度(℃)', '湿度(hPa)', '辐射量(KJ)', '降雨量(mm)', '风速(m/s)', '空气湿度(hPa)',]
-		var datas = [
-			[11, 11, 15, 13, 12, 13, 10],
-			[108, 112, 134, 56, 78, 99, 177],
-			[700, 112, 346, 56, 178, 299, 477],
-			[20, 0, 0, 0, 12, 13, 0],
-			[4, 5, 7, 8, 1, 3, 9],
-			[148, 152, 144, 526, 718, 199, 377],
-		]
+		var url = ['/get1510NewTemperature', '/get1520moisture', '/get15SolarRadiationIntensity', '/get15Rainfall', '/get15AverageWindSpeed', '/get15RelativeHumidity'];
+		var yLabed = ['0temperature', '20moisture', 'solarRadiationIntensity', 'rainfall', 'averageWindSpeed', 'relativeHumidity']
+		var y = [];
+		var x = [];
 		option = {
 			title: {
 				text: titles[index],
@@ -43,7 +33,7 @@ $(function(){
 			xAxis: {
 				type: 'category',
 				boundaryGap: false,
-				data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+				data: x
 			},
 			yAxis: {
 				name: names[index],
@@ -52,20 +42,105 @@ $(function(){
 			series: [
 				{
 					type: 'line',
-					data: datas[index],
-					// markPoint: {
-					// 	data: [
-					// 		{type: 'max', name: '最大值'},
-					// 		{type: 'min', name: '最小值'}
-					// 	]
-					// }
-				}
-			]
-		};
+					data: y,
 
+				}]
+		};
 		var myChart = echarts.init(document.getElementById('trwd'));
-		myChart.setOption(option);
+		if(index != currentPie){
+
+				$.ajax({
+					url: url[index],
+					async: false,
+					success: function (res){
+						// console.log(res)
+						res.forEach(function(item){
+
+							y.push(item[yLabed[index]]);
+							x.push(item.datetime);
+						});
+						option.series[0].data = y;
+						option.xAxis.data = x;
+						myChart.setOption(option);
+					}
+				});
+		}
 	})
+	// $('[data-toggle="popover"]').each(function () {
+	// 	var element = $(this);
+	// 	var txt ='<div id="trwd" style="height:300px;"></div>';
+	// 	element.popover({
+	// 		trigger: 'hover',
+	// 		placement: 'left', //top, bottom, left or right
+	// 		// title: '土壤信息',
+	// 		html: 'true',
+	// 		content: txt,
+	// 	})
+	// });
+	// $('[data-toggle="popover"]').on('shown.bs.popover', function () {
+	// 	var element = $(this);
+	// 	var index = element.index('[data-toggle="popover"]');
+	// 	var titles = [
+	// 		'最近壤温度变化',
+	// 		'最近土壤湿度变化',
+	// 		'最近阳光辐射变化',
+	// 		'最近降雨量变化',
+	// 		'最近平均风速变化',
+	// 		'最近空气湿度变化'
+	// 	];
+	// 	var names = ['温度(℃)', '湿度(hPa)', '辐射量(KJ)', '降雨量(mm)', '风速(m/s)', '空气湿度(hPa)',]
+	// 	var url = ['/get1510NewTemperature', '/get1520moisture', '/get15SolarRadiationIntensity', '/get15Rainfall', '/get15AverageWindSpeed', '/get15RelativeHumidity'];
+	// 	var yLabed = ['0temperature', '20moisture', 'solarRadiationIntensity', 'rainfall', 'averageWindSpeed', 'relativeHumidity']
+	// 	var y = [];
+	// 	var x = []
+	// 	option = {
+	// 		title: {
+	// 			text: titles[index],
+	// 			// subtext: '纯属虚构'
+	// 		},
+	// 		tooltip: {
+	// 			trigger: 'axis'
+	// 		},
+	// 		xAxis: {
+	// 			type: 'category',
+	// 			boundaryGap: false,
+	// 			data: x
+	// 			// data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+	// 		},
+	// 		yAxis: {
+	// 			name: names[index],
+	// 			type: 'value',
+	// 		},
+	// 		series: [
+	// 			{
+	// 				type: 'line',
+	// 				data: y,
+	// 				// markPoint: {
+	// 				// 	data: [
+	// 				// 		{type: 'max', name: '最大值'},
+	// 				// 		{type: 'min', name: '最小值'}
+	// 				// 	]
+	// 				// }
+	// 			}
+	// 		]
+	// 	};
+	// 	var myChart = echarts.init(document.getElementById('trwd'));
+	// 	$.ajax({
+	// 		url: url[index],
+	// 		async: false,
+	// 		success: function (res){
+	// 			// console.log(res)
+	// 			res.forEach(function(item){
+	//
+	// 				y.push(item[yLabed[index]]);
+	// 				x.push(item.datetime);
+	// 			});
+	// 			option.series[0].data = y;
+	// 			option.xAxis.data = x;
+	// 			myChart.setOption(option);
+	// 		}
+	// 	});
+	// })
 
 
 	//页面淡入效果
@@ -193,15 +268,8 @@ $(function(){
 
     //月运单量统计图
     var myChart1 = echarts.init(document.getElementById('myChart1'));
-	var option1 = {
 
-	/*	tooltip: {
-			trigger: 'item',  
-            formatter: function(params) {  
-                var res = '本月'+params.name+'号运单数：'+params.data; 
-                return res;  
-            }  
-		},*/
+	var option1 = {
 		grid: {
 			top: '5%',
 			left: '0%',
@@ -210,7 +278,8 @@ $(function(){
 	        containLabel: true
 	    },
 		xAxis: {
-			data: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'],
+			data: [],
+			type: 'category',
 			axisLabel: {
                 show: true,
                 textStyle: {
@@ -218,12 +287,12 @@ $(function(){
                     color: '#fff',
                 }
            	},
-           	axisLine:{  
-                lineStyle:{  
-                    color:'#fff',  
-                    width:1, 
-                }  
-            }  
+           	axisLine:{
+                lineStyle:{
+                    color:'#fff',
+                    width:1,
+                }
+            }
 		},
 
 		yAxis: {
@@ -241,36 +310,26 @@ $(function(){
                 }  
             },
             splitLine:{  
-	            show:false,
+	            show:true,
     		}  
 		},
-
+		tooltip: {
+			trigger: 'axis'
+		},
 		series :{
-			name: '',
-			type: 'bar',
+			name: 'aa',
+			type: 'line',
 			barWidth : 10,
-			data: ['5','14','3','6','8','18','11','4','8','7','16','13','6','10','11','9','19','13','4','20','12','7','13','15','8','3','9','16','11','16','8'],
-			// itemStyle: {
-            //     normal: {
-            //     	barBorderRadius:[5, 5, 5, 5],
-            //         color: new echarts.graphic.LinearGradient(
-            //             0, 0, 0, 1,
-            //             [
-            //                 {offset: 0, color: '#3876cd'},
-            //                 {offset: 0.5, color: '#45b4e7'},
-            //                 {offset: 1, color: '#54ffff'}
-            //             ]
-            //         ),
-            //     },
-            // },
-			itemStyle: {
+			data: [],
+			lineStyle: {
+				// color: '#8ec6ad' // #d68262
 				normal: {
 					color: new echarts.graphic.LinearGradient(
 						0, 0, 0, 1,
 						[
-							{offset: 0, color: 'rgba(0,0,0,0.4)'},
-							{offset: 0.7, color: 'rgba(0,0,0,0.4)'},
-							{offset: 1, color: '#ff8811'}
+							{offset: 0, color: '#8ec6ad'},
+							{offset: 0.7, color: '#8ec6ad'},
+							{offset: 1, color: '#8ec6ad'}
 						]
 					)
 				},
@@ -278,7 +337,22 @@ $(function(){
 			}
 		},
 	}
-
+	$.ajax({
+		url: '/College/getCollegeWater',
+		async: false,
+		success: function (res){
+			console.log(res);
+			var x = [];
+			var y = [];
+			for(var i=0; i<res.length; i++){
+				x.push(res[i].datetime);
+				y.push(res[i].cm);
+			}
+			option1.xAxis.data = x;
+			option1.series.data = y;
+			myChart1.setOption(option1);
+		}
+	});
 	//运单状态文字滚动
 	$('#FontScroll').FontScroll({time: 3000,num: 1});
 
@@ -325,13 +399,13 @@ $(function(){
 		//总计运单数
 		totalNum($('#totalNum'),1000);
 
-		myChart1.setOption(option1);
+		// myChart1.setOption(option1);
 	
 	},500);
 
 
 	var summaryPie1,summaryPie2,summaryPie3,summaryBar,summaryLine;
-	var pieData;
+	// var pieData;
 	function setSummary(){
 		summaryPie1 = echarts.init(document.getElementById('summaryPie1'));
 		summaryPie2 = echarts.init(document.getElementById('summaryPie2'));
@@ -1021,4 +1095,48 @@ $(function(){
 			$('.carInfo').width(0);
 		},800);
 	});
+
+	var marker = new AMap.Marker({
+		position: point[0],
+		map: myMap,
+		icon: icon
+	});
+	marker.content='<p>16110900049544</p >'+
+		'<p>类别：温湿度传感器</p >'+
+		'<p>满载率：95%</p >'+
+		'<p>已使用时间：2年</p >';
+	marker.on('click', markerClick);
+
+	var marker1 = new AMap.Marker({
+		position: point[1],
+		map: myMap,
+		icon: icon
+	});
+	marker1.content='<p>18012200073711</p >'+
+		'<p>类别：温湿度传感器</p >'+
+		'<p>满载率：85%</p >'+
+		'<p>已使用时间：2年</p >';
+	marker1.on('click', markerClick);
+
+	var marker2 = new AMap.Marker({
+		position: point[2],
+		map: myMap,
+		icon: icon
+	});
+	marker2.content='<p>18012200073713</p >'+
+		'<p>类别：降雨传感器</p >'+
+		'<p>满载率：75%</p >'+
+		'<p>已使用时间：2年</p >';
+	marker2.on('click', markerClick);
+
+	var marker3 = new AMap.Marker({
+		position: point[3],
+		map: myMap,
+		icon: icon
+	});
+	marker3.content='<p>校园</p >'+
+		'<p>类别：水位传感器</p >'+
+		'<p>满载率：75%</p >'+
+		'<p>已使用时间：2年</p >';
+	marker3.on('click', markerClick);
 });

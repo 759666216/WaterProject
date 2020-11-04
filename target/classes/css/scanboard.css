@@ -19,6 +19,9 @@ body{
 	background: url(../images/bg5.png);
 	background-size: 100% 100%;
 }
+.pieData{
+	cursor:pointer;
+}
 #loader{
 	width: 80px;
 	height: 80px;
@@ -77,6 +80,9 @@ body{
 .left{
 	float: left;
 	width: 20%;
+}
+.cont{
+	height: 90%;
 }
 .center{
 	float: left;
@@ -209,8 +215,8 @@ body{
 	padding: 12px 30px;
 }
 .itembg{
-	background-image: url(../images/gz.png);
-	background-repeat: repeat
+	/*background-image: url(../images/gz.png);*/
+	/*background-repeat: repeat*/
 }
 
 
@@ -260,6 +266,7 @@ body{
 
 .centerWp{
 	width: 94%;
+	height: 100%;
 	margin: 0 auto;
 }
 
@@ -500,7 +507,10 @@ body{
 	}
 
 	.item{
-		margin-bottom: 20px;
+		margin-bottom: 30px;
+	}
+	.cont, .left > .item{
+		height: 30%;
 	}
 	.itemTit{
 		padding: 10px 30px;

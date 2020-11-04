@@ -10,11 +10,13 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <title>汇总看板</title>
+<%--	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css" />--%>
 <link rel="stylesheet" type="text/css" href="css/reset.css" />
 <link rel="stylesheet" type="text/css" href="css/scanboard.css" />
 <link rel="stylesheet" type="text/css" href="css/animsition.css" />
 <link rel="stylesheet" type="text/css" href="css/jquery.shCircleLoader.css" />
-<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap3.css" />
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css" />
+
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.shCircleLoader-min.js"></script>
 </head>
@@ -177,15 +179,18 @@
 					<div class="itemCon itembg">
 						<div class="infoPie">
 							<ul class="clearfix">
-								<li id="mypopover" class="color-yellow" data-toggle="popover">
+<%--								<li id="mypopover" class="color-yellow" data-toggle="popover">--%>
+								<li class="color-yellow pieData" data-toggle="modal" data-target="#myModal">
 									<span class="border-yellow" id="indicator11">0</span>
 									<p>土壤温度</p>
 								</li>
-								<li class="color-green" data-toggle="popover">
+<%--								<li class="color-green" data-toggle="popover">--%>
+									<li class="color-green pieData" data-toggle="modal" data-target="#myModal">
 									<span class="border-green" id="indicator21" >0</span>
 									<p>土壤湿度</p>
 								</li>
-								<li class="color-blue" data-toggle="popover">
+<%--								<li class="color-blue" data-toggle="popover">--%>
+								<li class="color-yellow pieData" data-toggle="modal" data-target="#myModal">
 									<span class="border-blue" id="indicator31" >0</span>
 									<p>阳光辐射</p>
 								</li>
@@ -203,15 +208,18 @@
 					<div class="itemCon itembg">
 						<div class="infoPie">
 							<ul class="clearfix">
-								<li class="color-yellow" data-toggle="popover">
+<%--								<li class="color-yellow" data-toggle="popover">--%>
+									<li class="color-yellow pieData" data-toggle="modal" data-target="#myModal">
 									<span class="border-yellow" id="indicator12" total="60">0</span>
 									<p>当前降雨</p>
 								</li>
-								<li class="color-green" data-toggle="popover">
+<%--								<li class="color-green" data-toggle="popover">--%>
+									<li class="color-green pieData" data-toggle="modal" data-target="#myModal">
 									<span class="border-green" id="indicator22" total="65">0</span>
 									<p>平均风速</p>
 								</li>
-								<li class="color-blue" data-toggle="popover">
+<%--								<li class="color-blue" data-toggle="popover">--%>
+									<li class="color-blue pieData" data-toggle="modal" data-target="#myModal">
 									<span class="border-blue" id="indicator32" total="100">0</span>
 									<p>空气湿度</p>
 								</li>
@@ -237,7 +245,8 @@
 							<div id=""> <%--去除此ID取消字体轮滚--%>
 								<ul>
 									<li>
-										<div class="fontInner clearfix">
+<%--										这里class加上fontInner下面出来横线--%>
+										<div class="clearfix">
 											<span>16110900049544</span>
 											<span>温湿度</span>
 											<span>
@@ -251,7 +260,7 @@
 										</div>
 									</li>
 									<li>
-										<div class="fontInner clearfix">
+										<div class="clearfix">
 											<span>18012200073711</span>
 											<span>温湿度</span>
 											<span>
@@ -265,7 +274,7 @@
 										</div>
 									</li>
 									<li>
-										<div class="fontInner clearfix">
+										<div class="clearfix">
 											<span>18012200073713</span>
 											<span>降雨</span>
 											<span>
@@ -279,7 +288,7 @@
 										</div>
 									</li>
 									<li>
-										<div class="fontInner clearfix">
+										<div class="clearfix">
 											<span>ZC1712120023</span>
 											<span>未服役</span>
 											<span>
@@ -329,6 +338,24 @@
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">详情</h4>
+				</div>
+				<div class="modal-body">
+					<div id="trwd" style="height:400px;"></div>
+				</div>
+				<div class="modal-footer">
+<%--					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
 <%--<canvas id="canvas" style="position: absolute;top: 0;left: 0;height: 1400px"></canvas>--%>
 </body>
 <%--<script type="text/javascript" src="js/bg.js"></script>--%>
@@ -337,7 +364,8 @@
 <script type="text/javascript" src="js/jquery.animsition.js"></script>
 <script type="text/javascript" src="js/jquery.nicescroll.js"></script>
 <script type="text/javascript" src="js/echarts.min.js"></script>
-<script type="text/javascript" src="vendor/bootstrap/js/bootstrap3.js"></script>
+<%--<script type="text/javascript" src="vendor/bootstrap/js/bootstrap3.js"></script>--%>
+<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=ce3b1a3a7e67fc75810ce1ba1f83c01a&plugin=AMap.MapType"></script>
 
 <script>

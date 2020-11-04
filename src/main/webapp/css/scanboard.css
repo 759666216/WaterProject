@@ -19,7 +19,9 @@ body{
 	background: url(../images/bg5.png);
 	background-size: 100% 100%;
 }
-
+.pieData{
+	cursor:pointer;
+}
 #loader{
 	width: 80px;
 	height: 80px;
@@ -213,8 +215,8 @@ body{
 	padding: 12px 30px;
 }
 .itembg{
-	background-image: url(../images/gz.png);
-	background-repeat: repeat
+	/*background-image: url(../images/gz.png);*/
+	/*background-repeat: repeat*/
 }
 
 
