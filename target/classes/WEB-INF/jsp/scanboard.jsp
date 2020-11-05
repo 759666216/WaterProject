@@ -245,8 +245,7 @@
 							<div id=""> <%--去除此ID取消字体轮滚--%>
 								<ul>
 									<li>
-<%--										这里class加上fontInner下面出来横线--%>
-										<div class="clearfix">
+										<div class="fontInner clearfix">
 											<span>16110900049544</span>
 											<span>温湿度</span>
 											<span>
@@ -260,7 +259,7 @@
 										</div>
 									</li>
 									<li>
-										<div class="clearfix">
+										<div class="fontInner clearfix">
 											<span>18012200073711</span>
 											<span>温湿度</span>
 											<span>
@@ -274,7 +273,7 @@
 										</div>
 									</li>
 									<li>
-										<div class="clearfix">
+										<div class="fontInner clearfix">
 											<span>18012200073713</span>
 											<span>降雨</span>
 											<span>
@@ -288,7 +287,7 @@
 										</div>
 									</li>
 									<li>
-										<div class="clearfix">
+										<div class="fontInner clearfix">
 											<span>ZC1712120023</span>
 											<span>未服役</span>
 											<span>
